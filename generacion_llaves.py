@@ -2,6 +2,7 @@
 Generador de claves criptográficamente seguras.
 """
 import secrets
+from Crypto.Cipher import DES3
 
 
 def generate_des_key():
@@ -21,9 +22,18 @@ def generate_3des_key(key_option: int = 2):
 
     """
     if key_option == 2:
-        return secrets.token_bytes(16)
-    if key_option == 3:
-        return secrets.token_bytes(24)
+        key_len = 16
+    elif key_option == 3:
+        key_len = 24
+    else:
+        raise ValueError("key_option debe ser 2 o 3")
+
+    while True:
+        candidate = secrets.token_bytes(key_len)
+        try:
+            return DES3.adjust_key_parity(candidate)
+        except ValueError:
+            continue
 
 
 def generate_aes_key(key_size: int = 256):

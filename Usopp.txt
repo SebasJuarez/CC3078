@@ -1,0 +1,196 @@
+Last login: Wed Apr 22 18:03:51 on ttys002
+sebasjuarez@MacBook-Pro-de-Sebastian-2 ~ % docker exec -u root -it usopp_challenge bash
+root@ff5b35101d17:/home/usopp# ls 
+ONEPIECE
+root@ff5b35101d17:/home/usopp# cd ..
+root@ff5b35101d17:/home#  find / -name "flag.txt" 2>/dev/null
+/home/usopp/ONEPIECE/Alabasta/Rainbase/Casa_de_Igaram/flag.txt
+/home/usopp/ONEPIECE/Alabasta/Katorea/Casa_de_Kohza/flag.txt
+/home/usopp/ONEPIECE/Alabasta/Nanohana/Casa_de_Kohza/flag.txt
+/home/usopp/ONEPIECE/Fishman_Island/Coral_Mansion/Casa_de_Neptune/flag.txt
+/home/usopp/ONEPIECE/Fishman_Island/Gyoverly_Hills/Casa_de_Neptune/flag.txt
+/home/usopp/ONEPIECE/Dressrosa/Flower_Hill/Casa_de_Rebecca/flag.txt
+/home/usopp/ONEPIECE/Dressrosa/Corrida_Colosseum/Casa_de_Rebecca/flag.txt
+/home/usopp/ONEPIECE/Dressrosa/Toy_House/Casa_de_Trebol/flag.txt
+/home/usopp/ONEPIECE/Skypiea/Shandora/Casa_de_Montblanc_Norland/flag.txt
+/home/usopp/ONEPIECE/Pirate_Island/Pirates_Hideout/Casa_de_Whitebeard/flag.txt
+/home/usopp/ONEPIECE/Pirate_Island/Pirates_Cove/Casa_de_Shanks/flag.txt
+root@ff5b35101d17:/home# for f in $(find /home/usopp/ONEPIECE -name "flag.txt" 2>/dev/null); do
+
+  echo "==== $f ===="
+
+  cat "$f"
+
+  echo
+
+done
+==== /home/usopp/ONEPIECE/Alabasta/Rainbase/Casa_de_Igaram/flag.txt ====
+a77742694e4902d34c6e3e6e84cfdf7c483902319b4e45d8144f71bf11ac9382bf4e5f8b3c
+==== /home/usopp/ONEPIECE/Alabasta/Katorea/Casa_de_Kohza/flag.txt ====
+Has encontrado un objeto misterioso y no sabes qué es
+==== /home/usopp/ONEPIECE/Alabasta/Nanohana/Casa_de_Kohza/flag.txt ====
+Has encontrado un lugar lleno de secretos y misterios que apuntan a Rainbase
+==== /home/usopp/ONEPIECE/Fishman_Island/Coral_Mansion/Casa_de_Neptune/flag.txt ====
+Has encontrado un lugar lleno de secretos y misterios que apuntan a Rainbase
+==== /home/usopp/ONEPIECE/Fishman_Island/Gyoverly_Hills/Casa_de_Neptune/flag.txt ====
+Has encontrado un lugar seguro
+==== /home/usopp/ONEPIECE/Dressrosa/Flower_Hill/Casa_de_Rebecca/flag.txt ====
+Te cansaste de buscar y te has quedado dormido
+==== /home/usopp/ONEPIECE/Dressrosa/Corrida_Colosseum/Casa_de_Rebecca/flag.txt ====
+Has encontrado un lugar abandonado
+==== /home/usopp/ONEPIECE/Dressrosa/Toy_House/Casa_de_Trebol/flag.txt ====
+Te cansaste de buscar y te has quedado dormido
+==== /home/usopp/ONEPIECE/Skypiea/Shandora/Casa_de_Montblanc_Norland/flag.txt ====
+Has encontrado un lugar seguro
+==== /home/usopp/ONEPIECE/Pirate_Island/Pirates_Hideout/Casa_de_Whitebeard/flag.txt ====
+Has encontrado un enemigo y ha tenido que huir
+==== /home/usopp/ONEPIECE/Pirate_Island/Pirates_Cove/Casa_de_Shanks/flag.txt ====
+Has encontrado un enemigo y ha tenido que huir
+root@ff5b35101d17:/home# python3 - <<'PY'
+from utils.usopp_cipher import usopp_cipher
+
+flag_hex = "a77742694e4902d34c6e3e6e84cfdf7c483902319b4e45d8144f71bf11ac9382bf4e5f8b3c"
+
+print(usopp_cipher(flag_hex, 1234))
+PY
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'utils'
+root@ff5b35101d17:/home# python3 - <<'PY'
+from utils.usopp_cipher import usopp_cipher
+
+flag_hex = "a77742694e4902d34c6e3e6e84cfdf7c483902319b4e45d8144f71bf11ac9382bf4e5f8b3c"
+data = bytes.fromhex(flag_hex)
+
+print(usopp_cipher(data, 1234))
+PY
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'utils'
+root@ff5b35101d17:/home# find / -name "usopp_cipher.py" 2>/dev/null
+root@ff5b35101d17:/home# python3 - <<'PY'
+import sys
+sys.path.append("/home/usopp")  # ajusta si es otra ruta
+
+from utils.usopp_cipher import usopp_cipher
+
+flag_hex = "a77742694e4902d34c6e3e6e84cfdf7c483902319b4e45d8144f71bf11ac9382bf4e5f8b3c"
+data = bytes.fromhex(flag_hex)
+
+print(usopp_cipher(data, 1234))
+PY
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+ModuleNotFoundError: No module named 'utils'
+root@ff5b35101d17:/home# python3 - <<'PY'
+import random
+
+cipher_hex = "a77742694e4902d34c6e3e6e84cfdf7c483902319b4e45d8144f71bf11ac9382bf4e5f8b3c"
+seed = 1234
+
+def generate_keystream(seed, length):
+    random.seed(seed)
+    return bytes([random.randint(0, 255) for _ in range(length)])
+
+cipherbytes = bytes.fromhex(cipher_hex)
+keystream = generate_keystream(seed, len(cipherbytes))
+plaintext = bytes([c ^ k for c, k in zip(cipherbytes, keystream)])
+
+print(plaintext.decode())
+PY
+FLAG_c0f5f1f5820fd86b1d67bf516e7719c5
+root@ff5b35101d17:/home# find / -name "*.zip" 2>/dev/null
+/home/usopp/ONEPIECE/Alabasta/Rainbase/Casa_de_Igaram/data_c1a2f25fedbe.zip
+/home/usopp/ONEPIECE/Alabasta/Rainbase/Casa_de_Crocodile/data_01875192a968.zip
+/home/usopp/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Rebecca/data_f5f933496b31.zip
+/home/usopp/ONEPIECE/Dressrosa/Toy_House/Casa_de_Doflamingo/data_202f588c2236.zip
+/home/usopp/ONEPIECE/Skypiea/Angel_Beach/Casa_de_Conis/data_cc09fe21943d.zip
+/home/usopp/ONEPIECE/Skypiea/Shandora/Casa_de_Calgara/data_471f09e0dc7f.zip
+/home/usopp/ONEPIECE/Pirate_Island/Pirates_Hideout/Casa_de_Shanks/data_73c17f180d72.zip
+/home/usopp/ONEPIECE/Pirate_Island/Pirates_Den/Casa_de_Whitebeard/data_d159dfd1f9e5.zip
+/home/usopp/ONEPIECE/Pirate_Island/Pirates_Tavern/Casa_de_GolD_Roger/data_edcda5948207.zip
+/home/usopp/ONEPIECE/Pirate_Island/Pirates_Cove/Casa_de_Whitebeard/data_a50df0b4d4ed.zip
+root@ff5b35101d17:/home# python3 - <<'PY'
+import zipfile
+import os
+import shutil
+
+password = b'FLAG_2c4ffb7acddea707305e0e0cca7c74c1'
+
+zips = [
+    "/home/usopp/ONEPIECE/Alabasta/Rainbase/Casa_de_Igaram/data_c1a2f25fedbe.zip",
+    "/home/usopp/ONEPIECE/Alabasta/Rainbase/Casa_de_Crocodile/data_01875192a968.zip",
+    "/home/usopp/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Rebecca/data_f5f933496b31.zip",
+    "/home/usopp/ONEPIECE/Dressrosa/Toy_House/Casa_de_Doflamingo/data_202f588c2236.zip",
+    "/home/usopp/ONEPIECE/Skypiea/Angel_Beach/Casa_de_Conis/data_cc09fe21943d.zip",
+    "/home/usopp/ONEPIECE/Skypiea/Shandora/Casa_de_Calgara/data_471f09e0dc7f.zip",
+    "/home/usopp/ONEPIECE/Pirate_Island/Pirates_Hideout/Casa_de_Shanks/data_73c17f180d72.zip",
+    "/home/usopp/ONEPIECE/Pirate_Island/Pirates_Den/Casa_de_Whitebeard/data_d159dfd1f9e5.zip",
+    "/home/usopp/ONEPIECE/Pirate_Island/Pirates_Tavern/Casa_de_GolD_Roger/data_edcda5948207.zip",
+    "/home/usopp/ONEPIECE/Pirate_Island/Pirates_Cove/Casa_de_Whitebeard/data_a50df0b4d4ed.zip",
+]
+
+base_out = "/tmp/usopp_zips"
+shutil.rmtree(base_out, ignore_errors=True)
+os.makedirs(base_out, exist_ok=True)
+
+for i, zp in enumerate(zips, 1):
+    outdir = os.path.join(base_out, f"zip_{i}")
+    os.makedirs(outdir, exist_ok=True)
+    try:
+        with zipfile.ZipFile(zp) as z:
+            z.extractall(outdir, pwd=password)
+PY      print(f"[NO] {zp} -> {type(e).__name__}")
+[OK] /home/usopp/ONEPIECE/Alabasta/Rainbase/Casa_de_Igaram/data_c1a2f25fedbe.zip
+    Contenido: ['data_c1a2f25fedbe.zip.tmp.jpeg']
+[OK] /home/usopp/ONEPIECE/Alabasta/Rainbase/Casa_de_Crocodile/data_01875192a968.zip
+    Contenido: ['data_01875192a968.zip.tmp.jpeg']
+[OK] /home/usopp/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Rebecca/data_f5f933496b31.zip
+    Contenido: ['data_f5f933496b31.zip.tmp.jpeg']
+[OK] /home/usopp/ONEPIECE/Dressrosa/Toy_House/Casa_de_Doflamingo/data_202f588c2236.zip
+    Contenido: ['poneglyph.jpeg']
+[OK] /home/usopp/ONEPIECE/Skypiea/Angel_Beach/Casa_de_Conis/data_cc09fe21943d.zip
+    Contenido: ['data_cc09fe21943d.zip.tmp.jpeg']
+[OK] /home/usopp/ONEPIECE/Skypiea/Shandora/Casa_de_Calgara/data_471f09e0dc7f.zip
+    Contenido: ['data_471f09e0dc7f.zip.tmp.jpeg']
+[OK] /home/usopp/ONEPIECE/Pirate_Island/Pirates_Hideout/Casa_de_Shanks/data_73c17f180d72.zip
+    Contenido: ['data_73c17f180d72.zip.tmp.jpeg']
+[OK] /home/usopp/ONEPIECE/Pirate_Island/Pirates_Den/Casa_de_Whitebeard/data_d159dfd1f9e5.zip
+    Contenido: ['data_d159dfd1f9e5.zip.tmp.jpeg']
+[OK] /home/usopp/ONEPIECE/Pirate_Island/Pirates_Tavern/Casa_de_GolD_Roger/data_edcda5948207.zip
+    Contenido: ['data_edcda5948207.zip.tmp.jpeg']
+[OK] /home/usopp/ONEPIECE/Pirate_Island/Pirates_Cove/Casa_de_Whitebeard/data_a50df0b4d4ed.zip
+    Contenido: ['data_a50df0b4d4ed.zip.tmp.jpeg']
+root@ff5b35101d17:/home# ls
+usopp
+root@ff5b35101d17:/home# ls usopp
+ONEPIECE
+root@ff5b35101d17:/home# ls usopp/ONEPIECE
+Alabasta  Dressrosa  Fishman_Island  Pirate_Island  Skypiea
+root@ff5b35101d17:/home# ls /home/usopp/ONEPIECE/Dressrosa/Toy_House/Casa_de_Doflamingo/data_202f588c2236.zip
+/home/usopp/ONEPIECE/Dressrosa/Toy_House/Casa_de_Doflamingo/data_202f588c2236.zip
+root@ff5b35101d17:/home# ls /home/usopp/ONEPIECE/Dressrosa/Toy_House/Casa_de_Doflamingo                      
+data_202f588c2236.zip
+root@ff5b35101d17:/home# find /tmp/usopp_zips -type f
+/tmp/usopp_zips/zip_6/data_471f09e0dc7f.zip.tmp.jpeg
+/tmp/usopp_zips/zip_1/data_c1a2f25fedbe.zip.tmp.jpeg
+/tmp/usopp_zips/zip_9/data_edcda5948207.zip.tmp.jpeg
+/tmp/usopp_zips/zip_7/data_73c17f180d72.zip.tmp.jpeg
+/tmp/usopp_zips/zip_2/data_01875192a968.zip.tmp.jpeg
+/tmp/usopp_zips/zip_8/data_d159dfd1f9e5.zip.tmp.jpeg
+/tmp/usopp_zips/zip_10/data_a50df0b4d4ed.zip.tmp.jpeg
+/tmp/usopp_zips/zip_3/data_f5f933496b31.zip.tmp.jpeg
+/tmp/usopp_zips/zip_4/poneglyph.jpeg
+/tmp/usopp_zips/zip_5/data_cc09fe21943d.zip.tmp.jpeg
+root@ff5b35101d17:/home# ls 
+usopp
+root@ff5b35101d17:/home# cd ..
+root@ff5b35101d17:/# ls
+bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@ff5b35101d17:/# ls tmp
+usopp_zips
+root@ff5b35101d17:/# strings /tmp/usopp_zips/zip_4/poneglyph.jpeg
+JFIF
+;Exif
+7c585758117d5d425e501e11555b5e5c5614405846591443595b43404e1c4659465254125e405f5440115545525a5051585d5d565d4445411d14445446115b424512455b174257501a17625355584e1d12455c52584011554345575c44431154505d5b54561d14565f5611405f544b1143524357115d5945574357524146545017534b11405f54127c5545585c54471b115e545541585c5614785d44585517504111405f5412425b5b5412424145475b475b451f12
+root@ff5b35101d17:/# 

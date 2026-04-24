@@ -1,0 +1,162 @@
+Last login: Wed Apr 22 11:13:59 on ttys000
+sebasjuarez@FINAN-TESOR01 ~ % docker exec -u root -it zoro_challenge bash
+root@a4b82542fb08:/home/zoro# ls
+ONEPIECE
+root@a4b82542fb08:/home/zoro# cd ..
+root@a4b82542fb08:/home# find / -name "flag.txt" 2>/dev/null
+/home/zoro/ONEPIECE/Alabasta/Rainbase/Casa_de_Igaram/flag.txt
+/home/zoro/ONEPIECE/Alabasta/Katorea/Casa_de_Kohza/flag.txt
+/home/zoro/ONEPIECE/Alabasta/Nanohana/Casa_de_Pell/flag.txt
+/home/zoro/ONEPIECE/Fishman_Island/Coral_Mansion/Casa_de_Shirahoshi/flag.txt
+/home/zoro/ONEPIECE/Fishman_Island/Mermaid_Cove/Casa_de_Neptune/flag.txt
+/home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Shirahoshi/flag.txt
+/home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Otohime/flag.txt
+/home/zoro/ONEPIECE/Dressrosa/Flower_Hill/Casa_de_Viola/flag.txt
+/home/zoro/ONEPIECE/Dressrosa/Toy_House/Casa_de_Trebol/flag.txt
+/home/zoro/ONEPIECE/Skypiea/Pumpkin_Cafe/Casa_de_Pagaya/flag.txt
+/home/zoro/ONEPIECE/Pirate_Island/Pirates_Den/Casa_de_Gol_Roger/flag.txt
+root@a4b82542fb08:/home# find / -name "*.zip" 2>/dev/null
+/home/zoro/ONEPIECE/Alabasta/Alubarna/Casa_de_Igaram/data_30857ee3956f.zip
+/home/zoro/ONEPIECE/Alabasta/Alubarna/Casa_de_Crocodile/data_bc6410f474f9.zip
+/home/zoro/ONEPIECE/Alabasta/Spiders_Cafe/Casa_de_Miss_All_Sunday/data_efb4f361480d.zip
+/home/zoro/ONEPIECE/Fishman_Island/Gyoverly_Hills/Casa_de_Neptune/data_0491fe0b5f16.zip
+/home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Neptune/data_525992b98aa5.zip
+/home/zoro/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Rebecca/data_44629a977407.zip
+/home/zoro/ONEPIECE/Dressrosa/Corrida_Colosseum/Casa_de_Riku_Dold_III/data_2da567e6f3fd.zip
+/home/zoro/ONEPIECE/Skypiea/Pumpkin_Cafe/Casa_de_Conis/data_b5e39d1b9543.zip
+/home/zoro/ONEPIECE/Skypiea/Upper_Yard/Casa_de_Enel/data_5f83c6ca7c66.zip
+/home/zoro/ONEPIECE/Skypiea/Upper_Yard/Casa_de_Nami/data_2d01a41a8953.zip
+root@a4b82542fb08:/home# python3 - <<'PY'
+import zipfile
+from pathlib import Path
+
+password = b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'
+zips = [
+    "/home/zoro/ONEPIECE/Alabasta/Alubarna/Casa_de_Igaram/data_30857ee3956f.zip",
+    "/home/zoro/ONEPIECE/Alabasta/Alubarna/Casa_de_Crocodile/data_bc6410f474f9.zip",
+    "/home/zoro/ONEPIECE/Alabasta/Spiders_Cafe/Casa_de_Miss_All_Sunday/data_efb4f361480d.zip",
+    "/home/zoro/ONEPIECE/Fishman_Island/Gyoverly_Hills/Casa_de_Neptune/data_0491fe0b5f16.zip",
+    "/home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Neptune/data_525992b98aa5.zip",
+    "/home/zoro/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Rebecca/data_44629a977407.zip",
+    "/home/zoro/ONEPIECE/Dressrosa/Corrida_Colosseum/Casa_de_Riku_Dold_III/data_2da567e6f3fd.zip",
+    "/home/zoro/ONEPIECE/Skypiea/Pumpkin_Cafe/Casa_de_Conis/data_b5e39d1b9543.zip",
+    "/home/zoro/ONEPIECE/Skypiea/Upper_Yard/Casa_de_Enel/data_5f83c6ca7c66.zip",
+    "/home/zoro/ONEPIECE/Skypiea/Upper_Yard/Casa_de_Nami/data_2d01a41a8953.zip",
+]
+
+for zp in zips:
+    try:
+        with zipfile.ZipFile(zp) as z:
+            z.extractall("/tmp/zoro_test", pwd=password)
+            print("ZIP CORRECTO:", zp)
+            print("CONTENIDO:", z.namelist())
+            break
+    except Exception as e:
+        print("No sirvió:", zp, "|", type(e).__name__)
+PY
+ZIP CORRECTO: /home/zoro/ONEPIECE/Alabasta/Alubarna/Casa_de_Igaram/data_30857ee3956f.zip
+CONTENIDO: ['data_30857ee3956f.zip.tmp.jpeg']
+root@a4b82542fb08:/home# find /tmp/zoro_test -type f
+/tmp/zoro_test/data_30857ee3956f.zip.tmp.jpeg
+root@a4b82542fb08:/home# string /tmp/zoro_test/data_30857ee3956f.zip.tmp.jpeg
+bash: string: command not found
+root@a4b82542fb08:/home# strings /tmp/zoro_test/data_30857ee3956f.zip.tmp.jpeg
+JFIF
+EExif
+Este poneglyph no es el que buscas
+ $.' ",#
+(7),01444
+'9=82<.342
+!22222222222222222222222222222222222222222222222222
+root@a4b82542fb08:/home# /tmp/zoro_test/data_30857ee3956f.zip.tmp.jpeg
+bash: /tmp/zoro_test/data_30857ee3956f.zip.tmp.jpeg: Permission denied
+root@a4b82542fb08:/home# for f in $(find /home/zoro/ONEPIECE -name "flag.txt" 2>/dev/null); do
+  echo "==== $f ===="
+  cat "$f"
+  echo
+done
+==== /home/zoro/ONEPIECE/Alabasta/Rainbase/Casa_de_Igaram/flag.txt ====
+Has encontrado un lugar lleno de secretos y misterios que apuntan a Gyoncorde_Plaza
+==== /home/zoro/ONEPIECE/Alabasta/Katorea/Casa_de_Kohza/flag.txt ====
+Te cansaste de buscar y te has quedado dormido
+==== /home/zoro/ONEPIECE/Alabasta/Nanohana/Casa_de_Pell/flag.txt ====
+Has encontrado un lugar abandonado
+==== /home/zoro/ONEPIECE/Fishman_Island/Coral_Mansion/Casa_de_Shirahoshi/flag.txt ====
+Has encontrado un tesoro que apunta a Gyoncorde_Plaza
+==== /home/zoro/ONEPIECE/Fishman_Island/Mermaid_Cove/Casa_de_Neptune/flag.txt ====
+Has encontrado un obstáculo y hay que superarlo
+==== /home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Shirahoshi/flag.txt ====
+1ec06e284e33ba8964548532262ca1e2fd3c3835c83dc083bb6b9201142229746744d845a6
+==== /home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Otohime/flag.txt ====
+Has encontrado un obstáculo y hay que superarlo
+==== /home/zoro/ONEPIECE/Dressrosa/Flower_Hill/Casa_de_Viola/flag.txt ====
+Has encontrado un mapa que apunta a Gyoncorde_Plaza
+==== /home/zoro/ONEPIECE/Dressrosa/Toy_House/Casa_de_Trebol/flag.txt ====
+Has encontrado un amigo y han decidido viajar juntos
+==== /home/zoro/ONEPIECE/Skypiea/Pumpkin_Cafe/Casa_de_Pagaya/flag.txt ====
+Has encontrado un lugar seguro
+==== /home/zoro/ONEPIECE/Pirate_Island/Pirates_Den/Casa_de_Gol_Roger/flag.txt ====
+Has encontrado un lugar peligroso
+root@a4b82542fb08:/home# ls /home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Shirahoshi
+flag.txt
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Alabasta/Alubarna/Casa_de_Igaram/data_30857ee3956f.zip'); z.extractall('zoro_zip', pwd=b'onepiece'); print(z.namelist())"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/lib/python3.10/zipfile.py", line 1673, in extractall
+    self._extract_member(zipinfo, path, pwd)
+  File "/usr/lib/python3.10/zipfile.py", line 1726, in _extract_member
+    with self.open(member, pwd=pwd) as source, \
+  File "/usr/lib/python3.10/zipfile.py", line 1599, in open
+    return ZipExtFile(zef_file, mode, zinfo, pwd, True)
+  File "/usr/lib/python3.10/zipfile.py", line 859, in __init__
+    raise RuntimeError("Bad password for file %r" % zipinfo.orig_filename)
+RuntimeError: Bad password for file 'data_30857ee3956f.zip.tmp.jpeg'
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Alabasta/Alubarna/Casa_de_Igaram/data_30857ee3956f.zip'); z.extractall('zoro_zip', pwd=b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'); print(z.namelist())"
+['data_30857ee3956f.zip.tmp.jpeg']
+root@a4b82542fb08:/home# ls
+zoro  zoro_zip
+root@a4b82542fb08:/home# ls zoro_zip/
+data_30857ee3956f.zip.tmp.jpeg
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Alabasta/Alubarna/Casa_de_Crocodile/data_bc6410f474f9.zip'); z.extractall('zoro_zip', pwd=b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'); print(z.namelist())"
+['data_bc6410f474f9.zip.tmp.jpeg']
+root@a4b82542fb08:/home# ls zoro_zip/
+data_30857ee3956f.zip.tmp.jpeg  data_bc6410f474f9.zip.tmp.jpeg
+root@a4b82542fb08:/home# strings data_bc6410f474f9.zip.tmp.jpeg
+strings: 'data_bc6410f474f9.zip.tmp.jpeg': No such file
+root@a4b82542fb08:/home# strings zoro_zip/data_bc6410f474f9.zip.tmp.jpeg
+JFIF
+EExif
+Este poneglyph no es el que buscas
+ $.' ",#
+(7),01444
+'9=82<.342
+!22222222222222222222222222222222222222222222222222
+root@a4b82542fb08:/home# strings zoro_zip/data_30857ee3956f.zip.tmp.jpeg
+JFIF
+EExif
+Este poneglyph no es el que buscas
+ $.' ",#
+(7),01444
+'9=82<.342
+!22222222222222222222222222222222222222222222222222
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Alabasta/Spiders_Cafe/Casa_de_Miss_All_Sunday/data_efb4f361480d.zip'); z.extractall('zoro_zip', pwd=b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'); print(z.namelist())"
+['data_efb4f361480d.zip.tmp.jpeg']
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Fishman_Island/Gyoverly_Hills/Casa_de_Neptune/data_0491fe0b5f16.zip'); z.extractall('zoro_zip', pwd=b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'); print(z.namelist())"
+['data_0491fe0b5f16.zip.tmp.jpeg']
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Fishman_Island/Gyoverly_Hills/Casa_de_Neptune/data_0491fe0b5f16.zip'); z.extractall('zoro_zip', pwd=b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'); print(z.namelist())"
+['data_0491fe0b5f16.zip.tmp.jpeg']
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Neptune/data_525992b98aa5.zip'); z.extractall('zoro_zip', pwd=b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'); print(z.namelist())"
+['data_525992b98aa5.zip.tmp.jpeg']
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Neptune/data_525992b98aa5.zip'); z.extractall('zoro_zip', pwd=b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'); print(z.namelist())"
+['data_525992b98aa5.zip.tmp.jpeg']
+root@a4b82542fb08:/home# python3 -c "import zipfile; z=zipfile.ZipFile('/home/zoro/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Rebecca/data_44629a977407.zip'); z.extractall('zoro_zip', pwd=b'FLAG_f0ada1e91a92016b5e6bcbc50ec68e59'); print(z.namelist())"
+['poneglyph.jpeg']
+root@a4b82542fb08:/home# strings zoro_zip/poneglyph.jpeg
+JFIF
+Exif
+7a5e43524757431817455a544d1746574351175d5b5c5d43545611564e115e50575c115d571456525154474411465e14565f56115f595e455d51535657115b5111465951175e4659514511625e5a52565e48445f421e1155595512455c42421242515945125e414311405447525040525c5243411140581154585a53115f5e4652115b5f5258435f50405e5e5c115b59114659515a1d125a5a58465b5f5317455a5414444547554d175e5411405f5412615b5954555d4d475941114356421258585b5455505819
+ $.' ",#
+(7),01444
+'9=82<.342
+!22222222222222222222222222222222222222222222222222
+root@a4b82542fb08:/home# 

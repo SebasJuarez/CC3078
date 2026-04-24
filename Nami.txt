@@ -1,0 +1,138 @@
+Last login: Wed Apr 22 18:05:35 on ttys002
+sebasjuarez@MacBook-Pro-de-Sebastian-2 ~ % docker exec -u root -it nami_challenge bash
+root@ccb1a50d1d4e:/home/nami# ls 
+ONEPIECE
+root@ccb1a50d1d4e:/home/nami# cd ..
+root@ccb1a50d1d4e:/home# find / -name "flag.txt" 2>/dev/null
+/home/nami/ONEPIECE/Alabasta/Yuba/Casa_de_Toto/flag.txt
+/home/nami/ONEPIECE/Alabasta/Yuba/Casa_de_Pell/flag.txt
+/home/nami/ONEPIECE/Alabasta/Nanohana/Casa_de_Toto/flag.txt
+/home/nami/ONEPIECE/Fishman_Island/Coral_Hill/Casa_de_Neptune/flag.txt
+/home/nami/ONEPIECE/Fishman_Island/Coral_Hill/Casa_de_Otohime/flag.txt
+/home/nami/ONEPIECE/Dressrosa/Acacia/Casa_de_Riku_Dold_III/flag.txt
+/home/nami/ONEPIECE/Dressrosa/Flower_Hill/Casa_de_Riku_Dold_III/flag.txt
+/home/nami/ONEPIECE/Skypiea/Pumpkin_Cafe/Casa_de_Conis/flag.txt
+/home/nami/ONEPIECE/Pirate_Island/Pirates_Cove/Casa_de_GolD_Roger/flag.txt
+/home/nami/ONEPIECE/Pirate_Island/Pirates_Ship/Casa_de_GolD_Roger/flag.txt
+root@ccb1a50d1d4e:/home# for f in $(find /home/nami/ONEPIECE -name "flag.txt" 2>/dev/null); do
+
+  echo "==== $f ===="
+
+  cat "$f"
+
+  echo
+
+done
+==== /home/nami/ONEPIECE/Alabasta/Yuba/Casa_de_Toto/flag.txt ====
+Has encontrado un lugar lleno de secretos y misterios que apuntan a Coral_Hill
+==== /home/nami/ONEPIECE/Alabasta/Yuba/Casa_de_Pell/flag.txt ====
+Has encontrado un objeto misterioso y no sabes qué es
+==== /home/nami/ONEPIECE/Alabasta/Nanohana/Casa_de_Toto/flag.txt ====
+Has encontrado un enemigo y ha tenido que huir
+==== /home/nami/ONEPIECE/Fishman_Island/Coral_Hill/Casa_de_Neptune/flag.txt ====
+ce557130ff2bf80ce4f716f632221348c23f2b0c434b1b9b30b17614dee35e0d32b7f6473e
+==== /home/nami/ONEPIECE/Fishman_Island/Coral_Hill/Casa_de_Otohime/flag.txt ====
+Has encontrado una pista que apunta a Coral_Hill
+==== /home/nami/ONEPIECE/Dressrosa/Acacia/Casa_de_Riku_Dold_III/flag.txt ====
+Has encontrado una pista que apunta a Coral_Hill
+==== /home/nami/ONEPIECE/Dressrosa/Flower_Hill/Casa_de_Riku_Dold_III/flag.txt ====
+Has encontrado un lugar misterioso
+==== /home/nami/ONEPIECE/Skypiea/Pumpkin_Cafe/Casa_de_Conis/flag.txt ====
+Has encontrado un objeto misterioso y no sabes qué es
+==== /home/nami/ONEPIECE/Pirate_Island/Pirates_Cove/Casa_de_GolD_Roger/flag.txt ====
+Has encontrado un tesoro que apunta a Coral_Hill
+==== /home/nami/ONEPIECE/Pirate_Island/Pirates_Ship/Casa_de_GolD_Roger/flag.txt ====
+Has encontrado un mapa que apunta a Coral_Hill
+root@ccb1a50d1d4e:/home# cd /home/nami
+python3 - <<'PY'
+from utils.nami_chacha import chacha20_decrypt
+
+hex_content = "ce557130ff2bf80ce4f716f632221348c23f2b0c434b1b9b30b17614dee35e0d32b7f6473e"
+cipher_bytes = bytes.fromhex(hex_content)
+
+print(chacha20_decrypt(cipher_bytes, "21471"))
+PY
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ModuleNotFoundError: No module named 'utils'
+root@ccb1a50d1d4e:/home/nami#  find / -name "*.zip" 2>/dev/null
+/home/nami/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Otohime/data_4a49d027c95d.zip
+/home/nami/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Riku_Dold_III/data_45e870e6966c.zip
+/home/nami/ONEPIECE/Dressrosa/Corrida_Colosseum/Casa_de_Rebecca/data_d72958c4c5ca.zip
+/home/nami/ONEPIECE/Skypiea/Upper_Yard/Casa_de_Enel/data_2105c63330e9.zip
+/home/nami/ONEPIECE/Skypiea/Shandora/Casa_de_Calgara/data_e65e1ee7e6f4.zip
+/home/nami/ONEPIECE/Pirate_Island/Pirates_Hideout/Casa_de_GolD_Roger/data_ae4966f1099b.zip
+/home/nami/ONEPIECE/Pirate_Island/Pirates_Den/Casa_de_Shanks/data_7bd8ce929aed.zip
+root@ccb1a50d1d4e:/home/nami# python3 - <<'PY'
+
+import zipfile, os, shutil
+
+password = b'FLAG_c0f5f1f5820fd86b1d67bf516e7719c5'
+
+zips = [
+
+"/home/nami/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Otohime/data_4a49d027c95d.zip",
+
+"/home/nami/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Riku_Dold_III/data_45e870e6966c.zip",
+
+"/home/nami/ONEPIECE/Dressrosa/Corrida_Colosseum/Casa_de_Rebecca/data_d72958c4c5ca.zip",
+
+"/home/nami/ONEPIECE/Skypiea/Upper_Yard/Casa_de_Enel/data_2105c63330e9.zip",
+
+"/home/nami/ONEPIECE/Skypiea/Shandora/Casa_de_Calgara/data_e65e1ee7e6f4.zip",
+
+"/home/nami/ONEPIECE/Pirate_Island/Pirates_Hideout/Casa_de_GolD_Roger/data_ae4966f1099b.zip",
+
+"/home/nami/ONEPIECE/Pirate_Island/Pirates_Den/Casa_de_Shanks/data_7bd8ce929aed.zip"
+
+]
+
+base_out = "/tmp/nami_zips"
+
+shutil.rmtree(base_out, ignore_errors=True)
+
+os.makedirs(base_out, exist_ok=True)
+
+PY      print(f"[NO] {zp} -> {type(e).__name__}")
+[OK] /home/nami/ONEPIECE/Fishman_Island/Gyoncorde_Plaza/Casa_de_Otohime/data_4a49d027c95d.zip
+    Contenido: ['data_4a49d027c95d.zip.tmp.jpeg']
+[OK] /home/nami/ONEPIECE/Dressrosa/Royal_Palace/Casa_de_Riku_Dold_III/data_45e870e6966c.zip
+    Contenido: ['poneglyph.jpeg']
+[OK] /home/nami/ONEPIECE/Dressrosa/Corrida_Colosseum/Casa_de_Rebecca/data_d72958c4c5ca.zip
+    Contenido: ['data_d72958c4c5ca.zip.tmp.jpeg']
+[OK] /home/nami/ONEPIECE/Skypiea/Upper_Yard/Casa_de_Enel/data_2105c63330e9.zip
+    Contenido: ['data_2105c63330e9.zip.tmp.jpeg']
+[OK] /home/nami/ONEPIECE/Skypiea/Shandora/Casa_de_Calgara/data_e65e1ee7e6f4.zip
+    Contenido: ['data_e65e1ee7e6f4.zip.tmp.jpeg']
+[OK] /home/nami/ONEPIECE/Pirate_Island/Pirates_Hideout/Casa_de_GolD_Roger/data_ae4966f1099b.zip
+    Contenido: ['data_ae4966f1099b.zip.tmp.jpeg']
+[OK] /home/nami/ONEPIECE/Pirate_Island/Pirates_Den/Casa_de_Shanks/data_7bd8ce929aed.zip
+    Contenido: ['data_7bd8ce929aed.zip.tmp.jpeg']
+root@ccb1a50d1d4e:/home/nami# cd ..
+root@ccb1a50d1d4e:/home# cd ..
+root@ccb1a50d1d4e:/# ls
+bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+root@ccb1a50d1d4e:/# cd tmp
+root@ccb1a50d1d4e:/tmp# ls
+nami_zips
+root@ccb1a50d1d4e:/tmp# cd nami_zips
+root@ccb1a50d1d4e:/tmp/nami_zips# ls
+zip_1  zip_2  zip_3  zip_4  zip_5  zip_6  zip_7
+root@ccb1a50d1d4e:/tmp/nami_zips# cd zip_2
+root@ccb1a50d1d4e:/tmp/nami_zips/zip_2# ls
+poneglyph.jpeg
+root@ccb1a50d1d4e:/tmp/nami_zips/zip_2# strings poneglyph.jpeg
+JFIF
+!Exif
+66595117665d43585311755e4252435c5c5159451259555311535d43564841115652545c114356434b115b5111465951175040525c56545d5d5b50584145471753575255424257115b51114659515e43125a5a58465e545050541e1156424512435144545343575f585c56144359571164585f5756584e415a42145a54535f4017455a544d1759535514565f12544c5444415414435e12505743115356555e5f4145144359575c1a
+0221
+0100
+ $.' ",#
+(7),01444
+'9=82<.342
+!22222222222222222222222222222222222222222222222222
+$3br
+%&'()*456789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz
+	#3R
+&'()*56789:CDEFGHIJSTUVWXYZcdefghijstuvwxyz
+root@ccb1a50d1d4e:/tmp/nami_zips/zip_2# 

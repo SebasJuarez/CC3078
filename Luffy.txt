@@ -1,0 +1,203 @@
+Last login: Wed Apr 22 09:20:08 on ttys000
+sebasjuarez@FINAN-TESOR01 ~ % docker exec -u root -it luffy_challenge bash
+root@50de74bd1e1e:/home/luffy# whoami 
+root
+root@50de74bd1e1e:/home/luffy# ls
+ONEPIECE
+root@50de74bd1e1e:/home/luffy# cd onepiece
+bash: cd: onepiece: No such file or directory
+root@50de74bd1e1e:/home/luffy# cd ONEPIECE
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls
+Alabasta  Dressrosa  Fishman_Island  Pirate_Island  Skypiea
+root@50de74bd1e1e:/home/luffy/ONEPIECE# cd Alabasta
+root@50de74bd1e1e:/home/luffy/ONEPIECE/Alabasta# ls
+Alubarna  Katorea  Nanohana  Rainbase  Spiders_Cafe  Yuba
+root@50de74bd1e1e:/home/luffy/ONEPIECE/Alabasta# ls alubarna
+ls: cannot access 'alubarna': No such file or directory
+root@50de74bd1e1e:/home/luffy/ONEPIECE/Alabasta# ls Alubarna
+Casa_de_Crocodile  Casa_de_Igaram  Casa_de_Vivi
+root@50de74bd1e1e:/home/luffy/ONEPIECE/Alabasta# ls Alubarna/Casa_de_Crocodile/
+root@50de74bd1e1e:/home/luffy/ONEPIECE/Alabasta# ls Alubarna/Casa_de_Igaram    
+root@50de74bd1e1e:/home/luffy/ONEPIECE/Alabasta# ls Alubarna/Casa_de_Vivi  
+root@50de74bd1e1e:/home/luffy/ONEPIECE/Alabasta# cd ..
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Katorea              
+ls: cannot access 'Katorea': No such file or directory
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Katorea
+Casa_de_Kohza  Casa_de_Pell  Casa_de_Toto
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Katorea/Casa_de_Kohza
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Katorea/Casa_de_Pell 
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Katorea/Casa_de_Toto
+flag.txt
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Nanohana            
+Casa_de_Kohza  Casa_de_Pell  Casa_de_Toto
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Nanohana/Casa_de_Toto
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Nanohana/Casa_de_Pell
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Nanohana/Casa_de_Kohza
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Rainbase              
+Casa_de_Crocodile  Casa_de_Igaram  Casa_de_Vivi
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Rainbase/Casa_de_Crocodile/
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Rainbase/Casa_de_Igaram/   
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Rainbase/Casa_de_Vivi/  
+data_622c67a66d94.zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# cat Alabasta/Katorea/Casa_de_Toto/flag.txt
+Has encontrado un amigo y han decidido viajar juntosroot@50de74bd1e1e:/home/luffy/ONEPIECE# unzip Alabasta/Rainbase/Casa_de_Vivi/data_622c67a66d94.zip
+bash: unzip: command not found
+root@50de74bd1e1e:/home/luffy/ONEPIECE# sudo install unzip
+install: missing destination file operand after 'unzip'
+Try 'install --help' for more information.
+root@50de74bd1e1e:/home/luffy/ONEPIECE# install --help
+Usage: install [OPTION]... [-T] SOURCE DEST
+  or:  install [OPTION]... SOURCE... DIRECTORY
+  or:  install [OPTION]... -t DIRECTORY SOURCE...
+  or:  install [OPTION]... -d DIRECTORY...
+
+This install program copies files (often just compiled) into destination
+locations you choose.  If you want to download and install a ready-to-use
+package on a GNU/Linux system, you should instead be using a package manager
+like yum(1) or apt-get(1).
+
+In the first three forms, copy SOURCE to DEST or multiple SOURCE(s) to
+the existing DIRECTORY, while setting permission modes and owner/group.
+In the 4th form, create all components of the given DIRECTORY(ies).
+
+Mandatory arguments to long options are mandatory for short options too.
+      --backup[=CONTROL]  make a backup of each existing destination file
+  -b                  like --backup but does not accept an argument
+  -c                  (ignored)
+  -C, --compare       compare each pair of source and destination files, and
+                        in some cases, do not modify the destination at all
+  -d, --directory     treat all arguments as directory names; create all
+                        components of the specified directories
+  -D                  create all leading components of DEST except the last,
+                        or all components of --target-directory,
+                        then copy SOURCE to DEST
+  -g, --group=GROUP   set group ownership, instead of process' current group
+  -m, --mode=MODE     set permission mode (as in chmod), instead of rwxr-xr-x
+  -o, --owner=OWNER   set ownership (super-user only)
+  -p, --preserve-timestamps   apply access/modification times of SOURCE files
+                        to corresponding destination files
+  -s, --strip         strip symbol tables
+      --strip-program=PROGRAM  program used to strip binaries
+  -S, --suffix=SUFFIX  override the usual backup suffix
+  -t, --target-directory=DIRECTORY  copy all SOURCE arguments into DIRECTORY
+  -T, --no-target-directory  treat DEST as a normal file
+  -v, --verbose       print the name of each directory as it is created
+      --preserve-context  preserve SELinux security context
+  -Z                      set SELinux security context of destination
+                            file and each created directory to default type
+      --context[=CTX]     like -Z, or if CTX is specified then set the
+                            SELinux or SMACK security context to CTX
+      --help     display this help and exit
+      --version  output version information and exit
+
+The backup suffix is '~', unless set with --suffix or SIMPLE_BACKUP_SUFFIX.
+The version control method may be selected via the --backup option or through
+the VERSION_CONTROL environment variable.  Here are the values:
+
+  none, off       never make backups (even if --backup is given)
+  numbered, t     make numbered backups
+  existing, nil   numbered if numbered backups exist, simple otherwise
+  simple, never   always make simple backups
+
+GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+Report any translation bugs to <https://translationproject.org/team/>
+Full documentation <https://www.gnu.org/software/coreutils/install>
+or available locally via: info '(coreutils) install invocation'
+root@50de74bd1e1e:/home/luffy/ONEPIECE# install unzip
+install: missing destination file operand after 'unzip'
+Try 'install --help' for more information.
+root@50de74bd1e1e:/home/luffy/ONEPIECE# unzip Alabasta/Rainbase/Casa_de_Vivi/data_622c67a66d94.zip
+bash: unzip: command not found
+root@50de74bd1e1e:/home/luffy/ONEPIECE# python3 -c "import zipfile; z=zipfile.ZipFile('Alabasta/Rainbase/Casa_de_Vivi/data_622c67a66d94.zip'); z.extractall('luffy_zip', pwd=b'onepiece'); print(z.namelist())"
+['data_622c67a66d94.zip.tmp.jpeg']
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Alabasta/Rainbase/Casa_de_Vivi/
+data_622c67a66d94.zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls
+Alabasta  Dressrosa  Fishman_Island  Pirate_Island  Skypiea  luffy_zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls luffy_zip
+data_622c67a66d94.zip.tmp.jpeg
+root@50de74bd1e1e:/home/luffy/ONEPIECE# strings luffy_zip/data_622c67a66d94.zip.tmp.jpeg
+JFIF
+EExif
+Este poneglyph no es el que buscas
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls 
+Alabasta  Dressrosa  Fishman_Island  Pirate_Island  Skypiea  luffy_zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# rm -rf luffy_zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls
+Alabasta  Dressrosa  Fishman_Island  Pirate_Island  Skypiea
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa
+Acacia  Corrida_Colosseum  Flower_Hill  Royal_Palace  Toy_House
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Acacia
+Casa_de_Rebecca  Casa_de_Riku_Dold_III  Casa_de_Viola
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Acacia/Casa_de_Rebecca
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Acacia/Casa_de_Riku_Dold_III
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Acacia/Casa_de_Viola        
+data_35caf2817372.zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# python3 -c "import zipfile; z=zipfile.ZipFile('Dressrosa/Acacia/Casa_de_Viola/data_35caf2817372.zip'); z.extractall('luffy_zip', pwd=b'onepiece'); print(z.namelist())"
+['data_35caf2817372.zip.tmp.jpeg']
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls
+Alabasta  Dressrosa  Fishman_Island  Pirate_Island  Skypiea  luffy_zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls luffy_zip
+data_35caf2817372.zip.tmp.jpeg
+root@50de74bd1e1e:/home/luffy/ONEPIECE# strings luffy_zip/data_35caf2817372.zip.tmp.jpeg 
+JFIF
+EExif
+Este poneglyph no es el que buscas
+root@50de74bd1e1e:/home/luffy/ONEPIECE# rm -rf luffy_zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/                    
+Acacia  Corrida_Colosseum  Flower_Hill  Royal_Palace  Toy_House
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Corrida_Colosseum
+Casa_de_Rebecca  Casa_de_Riku_Dold_III  Casa_de_Viola
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Corrida_Colosseum/Casa_de_Rebecca
+flag.txt
+root@50de74bd1e1e:/home/luffy/ONEPIECE# cat Dressrosa/Corrida_Colosseum/Casa_de_Rebecca/flag.txt
+747d75706e540155535003540d06500b03040607500451015351535702015752020f540708root@50de74bd1e1e:/home/luffy/ONEPIECE# python3 ot@50de74bd1e1e:/home/luffy/ONEPIECE# python3 - <<'PY'
+flag_hex = "747d75706e540155535003540d06500b03040607500451015351535702015752020f540708"
+key = "21471".encode()
+data = bytes.fromhex(flag_hex)
+out = bytes([b ^ key[i % len(key)] for i, b in enumerate(data)])
+print(out.decode())
+PY
+FLAG_f0ada1e91a92016b5e6bcbc50ec68e59
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Corrida_Colosseum/Casa_de_Riku_Dold_III
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Corrida_Colosseum/Casa_de_Viola        
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Flower_Hill                    
+Casa_de_Rebecca  Casa_de_Riku_Dold_III  Casa_de_Viola
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Flower_Hill/Casa_de_Rebecca
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Flower_Hill/Casa_de_Rebecca/ Casa_de_Riku_Dold_III 
+ls: cannot access 'Casa_de_Riku_Dold_III': No such file or directory
+Dressrosa/Flower_Hill/Casa_de_Rebecca/:
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Flower_Hill/Casa_de_Riku_Dold_III 
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Flower_Hill/Casa_de_Viola         
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Royal_Palace
+Casa_de_Rebecca  Casa_de_Riku_Dold_III  Casa_de_Viola
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Royal_Palace/Casa_de_Rebecca
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls Dressrosa/Royal_Palace/Casa_de_Riku_Dold_III
+data_e1611bd1687d.zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# python3 -c "import zipfile; z=zipfile.ZipFile('Dressrosa/Royal_Palace/Casa_de_Riku_Dold_III/data_e1611bd1687d.zip'); z.extractall('luffy_zip', pwd=b'onepiece'); print(z.namelist())"
+['poneglyph.jpeg']
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls
+Alabasta  Dressrosa  Fishman_Island  Pirate_Island  Skypiea  luffy_zip
+root@50de74bd1e1e:/home/luffy/ONEPIECE# python3 -c "from PIL import Image; img=Image.open('luffy_zip/data_e1611bd1687d.zip.tmp.jpeg'); print(img.getexif())"
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'PIL'
+root@50de74bd1e1e:/home/luffy/ONEPIECE# ls luffy_zip
+poneglyph.jpeg
+root@50de74bd1e1e:/home/luffy/ONEPIECE# strings ponelgyph.jpeg
+strings: 'ponelgyph.jpeg': No such file
+root@50de74bd1e1e:/home/luffy/ONEPIECE# strings luffy_zip/ponelgyph.jpeg
+strings: 'luffy_zip/ponelgyph.jpeg': No such file
+root@50de74bd1e1e:/home/luffy/ONEPIECE# strings luffy_zip/poneglyph.jpeg
+JFIF
+Exif
+665951174357425156435159514542125e5a177e5a504656115654575e55575514435e12424042554b11405f545b43145e425e505a5316411164585f5756584e415a115d5911535f145645465459474512455b17555b4257584757431443595711595e4241585a50115a5847435e404814585712455c5211455e465b551c
+root@50de74bd1e1e:/home/luffy/ONEPIECE# python3 - <<'PY'
+hex_text = "665951174357425156435159514542125e5a177e5a504656115654575e55575514435e12424042554b11405f545b43145e425e505a5316411164585f5756584e415a115d5911535f145645465459474512455b17555b4257584757431443595711595e4241585a50115a5847435e404814585712455c5211455e465b551c"
+key = "21471".encode()
+data = bytes.fromhex(hex_text)
+out = bytes([b ^ key[i % len(key)] for i, b in enumerate(data)])
+print(out.decode(errors="ignore"))
+PY
+The researchers on Ohara decided to study their island's Poneglyph in an attempt to discover the missing history of the world.
+root@50de74bd1e1e:/home/luffy/ONEPIECE# 
